@@ -8,11 +8,12 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.tm.navapp.R
+import com.tm.navapp.SharedViewModel
 import com.tm.navapp.databinding.FragmentDashboardBinding
 
 class DashboardFragment : Fragment() {
 
+    private var viewModel: SharedViewModel? = null
     private lateinit var dashboardViewModel: DashboardViewModel
     private var _binding: FragmentDashboardBinding? = null
 
@@ -24,7 +25,7 @@ class DashboardFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         dashboardViewModel =
             ViewModelProvider(this).get(DashboardViewModel::class.java)
 

@@ -3,22 +3,36 @@ package com.tm.navapp
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
-import com.tm.navapp.data.MoshiWeatherResponse
+import com.tm.navapp.data.Weather
 import com.tm.navapp.data.WeatherRepository
 
-class SharedViewModel(app: Application) : AndroidViewModel(app) {
+class SharedViewModel : ViewModel() {
 
     // Link to Date Reader/getter
     var weatherRepository: WeatherRepository = WeatherRepository()
 
-    // This function takes in Lambda function that contains suspend function
-    val weather: LiveData<List<MoshiWeatherResponse>> = liveData {
-        val data = weatherRepository.getWeather()
-        Log.i("SharedVM Line 31", data.toString())
-        emit(data)
-        // Log.i("Travis Weather Data From Assets", "Current Weather: ${it.current}")
-        Log.i("SharedVM Line 31", data.toString())
+    val currentWeatherRepository: MutableLiveData<Weather> = MutableLiveData()
+
+    var cityText : String = ""
+
+    val weather: LiveData<Weather> = liveData {
+        val data= weatherRepository.getWeather(cityText)
+        // If data exist let it emit
+        data?.let {
+            Log.i("Shared VM", it.toString())
+            emit(it)
+        }
     }
+
+    // This function takes in Lambda function that contains suspend function
+//    val weather: LiveData<Weather> = liveData {
+//        val data= weatherRepository.getWeather()
+//        // If data exist let it emit
+//        data?.let {
+//            Log.i("Shared VM", it.toString())
+//            emit(it)
+//        }
+//    }
 }
 
 
@@ -30,12 +44,11 @@ class SharedViewModel(app: Application) : AndroidViewModel(app) {
         data?.forEach {
             Log.i("Travis Weather Data From Assets", "Current Weather: ${it.current}")
         }
-
+    }
         /*  -- Get Text From Assets  */
+    init {
         val data = weatherRepository.getTextFromAsset(app, "weather_data.json")
         Log.i("Travis Weather Data From Assets",data)
-
-
         Log.i("Travis Weather Data From Assets", data.toString())
     }
 

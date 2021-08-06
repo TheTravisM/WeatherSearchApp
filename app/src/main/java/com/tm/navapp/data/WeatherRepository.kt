@@ -2,14 +2,14 @@ package com.tm.navapp.data
 
 import android.content.Context
 import android.util.Log
-import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-const val BASE_ENDPOINT_URL = "http://api.weatherstack.com/current?access_key=2093b02f759229c1da497533ba4e672a&query=cincinnati"
+/* http://api.weatherstack.com/current?access_key=2093b02f759229c1da497533ba4e672a&query=cincinnati/ */
+const val BASE_ENDPOINT_URL = "http://api.weatherstack.com/"
+const val Access_key = "2093b02f759229c1da497533ba4e672a"
 
 class WeatherRepository {
 
@@ -34,32 +34,41 @@ class WeatherRepository {
         retrofit.create(WeatherApi::class.java)
     }
 
-
-    // Get Data from Assets
-    fun getTextFromAsset(context: Context, fileName: String): String {
-        return context.resources.assets.open(fileName)
-            // buffer reader handles file reading more efficiently
-            .bufferedReader()
-            .use { it.readText() }
+    suspend fun getWeather(city:String): Weather? {
+        val response = weatherApi.getWeather(city)
+       if (response.isSuccessful) {
+           Log.i("Repository Line 48", response.toString())
+           return response.body()
+       }
+        return null
     }
 
-    suspend fun getWeather(): List<MoshiWeatherResponse> {
-        val response = weatherApi.getWeather()
+
+}
+    /* --   fun getCurrentWeather() {
+        val response = weatherApi.getCurrentWeather()
         return if (response.isSuccessful)
             response.body() ?: emptyList()
+        Log.i("Repository Line 48", response.toString())
         else
-            emptyList()
+        emptyList()
     }
-}
-    /* --
-        fun getWeather(context: Context, fileName: String): List<MoshiWeatherResponse>? {
+        fun getWeather(context: Context, fileName: String): List<Weather>? {
             // Allows us to get access to Assets Folder Raw Json file
             val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
             val listType = Types.newParameterizedType(
-            List::class.java, MoshiWeatherResponse::class.java
+            List::class.java, Weather::class.java
             )
-            val adapter: JsonAdapter<List<MoshiWeatherResponse>> = moshi.adapter(listType)
+            val adapter: JsonAdapter<List<Weather>> = moshi.adapter(listType)
             return adapter.fromJson(getTextFromAsset(context, fileName))
+        }
+
+        // Get Data from Assets
+        fun getTextFromAsset(context: Context, fileName: String): String {
+            return context.resources.assets.open(fileName)
+                // buffer reader handles file reading more efficiently
+                .bufferedReader()
+                .use { it.readText() }
         }
 
 
