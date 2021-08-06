@@ -2,27 +2,49 @@ package com.tm.navapp
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.tm.navapp.data.MoshiWeatherResponse
 import com.tm.navapp.data.WeatherRepository
 
 class SharedViewModel(app: Application) : AndroidViewModel(app) {
 
-    private val _quantity: MutableLiveData<Int> = MutableLiveData(0)
-    val quantity: LiveData<Int> = _quantity
-
+    // Link to Date Reader/getter
     var weatherRepository: WeatherRepository = WeatherRepository()
 
-    fun increaseQuantity() {
-        _quantity.value = _quantity.value!! + 1
-    }
-
-    fun decreaseQuantity() {
-        if (_quantity.value!! > 0) {
-            _quantity.value = _quantity.value!! - 1
-        }
-
+    // This function takes in Lambda function that contains suspend function
+    val weather: LiveData<List<MoshiWeatherResponse>> = liveData {
+        val data = weatherRepository.getWeather()
+        Log.i("SharedVM Line 31", data.toString())
+        emit(data)
+        // Log.i("Travis Weather Data From Assets", "Current Weather: ${it.current}")
+        Log.i("SharedVM Line 31", data.toString())
     }
 }
+
+
+
+/* --
+
+    init {
+        val data = weatherRepository.getWeather(app, "weather_data.json")
+        data?.forEach {
+            Log.i("Travis Weather Data From Assets", "Current Weather: ${it.current}")
+        }
+
+        /*  -- Get Text From Assets  */
+        val data = weatherRepository.getTextFromAsset(app, "weather_data.json")
+        Log.i("Travis Weather Data From Assets",data)
+
+
+        Log.i("Travis Weather Data From Assets", data.toString())
+    }
+
+    /* Pull Data From Raw File */
+    init {
+        val data = weatherRepository.getTextFromResource(app, R.raw.weather_data)
+        Log.i("Travis Weather Data From Raw File",data)
+    }
+
+
+
+ */
