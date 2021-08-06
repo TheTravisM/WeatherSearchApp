@@ -47,12 +47,12 @@ class HomeFragment : Fragment() {
         }
 
         viewModel?.weather?.observe(viewLifecycleOwner, { products ->
-            val productNames = StringBuilder()
-            products.forEach {
-                productNames.appendLine(it.name)
-            }
+            //val productNames = StringBuilder()
+            //products.forEach {
+             //  productNames.appendLine(it.name)
+            //}
 
-            binding.cartContentText.text = productNames.toString()
+            //binding.cartContentText.text = productNames.toString()
         })
     }
 

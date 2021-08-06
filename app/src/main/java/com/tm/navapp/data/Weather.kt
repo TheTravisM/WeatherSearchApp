@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import androidx.annotation.Keep
 
 @Keep
-data class MoshiWeatherResponse(
+data class Weather(
     @Json(name = "current")
     val current: Current,
     @Json(name = "location")

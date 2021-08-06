@@ -3,7 +3,7 @@ package com.tm.navapp
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
-import com.tm.navapp.data.MoshiWeatherResponse
+import com.tm.navapp.data.Weather
 import com.tm.navapp.data.WeatherRepository
 
 class SharedViewModel(app: Application) : AndroidViewModel(app) {
@@ -12,7 +12,7 @@ class SharedViewModel(app: Application) : AndroidViewModel(app) {
     var weatherRepository: WeatherRepository = WeatherRepository()
 
     // This function takes in Lambda function that contains suspend function
-    val weather: LiveData<List<MoshiWeatherResponse>> = liveData {
+    val weather: LiveData<List<Weather>> = liveData {
         val data = weatherRepository.getWeather()
         Log.i("SharedVM Line 31", data.toString())
         emit(data)
