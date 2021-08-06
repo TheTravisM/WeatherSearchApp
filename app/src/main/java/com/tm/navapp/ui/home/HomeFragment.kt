@@ -1,17 +1,13 @@
 package com.tm.navapp.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.tm.navapp.R
-import com.tm.navapp.data.AnnyceWeatherResponse
 import com.tm.navapp.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
