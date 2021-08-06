@@ -6,19 +6,14 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.tm.navapp.data.AnnyceWeatherRepository
+import com.tm.navapp.data.WeatherRepository
 
 class SharedViewModel(app: Application) : AndroidViewModel(app) {
 
     private val _quantity: MutableLiveData<Int> = MutableLiveData(0)
     val quantity: LiveData<Int> = _quantity
 
-    var annyceWeatherRepository: AnnyceWeatherRepository = AnnyceWeatherRepository()
-
-    init {
-        val data = annyceWeatherRepository.getTextFromResource(app, R.raw.weather_data)
-        Log.i("Travis_Weather",data)
-    }
+    var weatherRepository: WeatherRepository = WeatherRepository()
 
     fun increaseQuantity() {
         _quantity.value = _quantity.value!! + 1
