@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.tm.navapp.SharedViewModel
 import com.tm.navapp.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -37,8 +38,25 @@ class HomeFragment : Fragment() {
         return root
     }
 
-    //https://github.com/LinkedInLearning/android-dev-est-4-2873199/tree/01_01b
-    //https://www.linkedin.com/learning/android-development-essential-training-4-working-with-data/model-an-entity-in-a-kotlin-data-class?resume=false&u=76846204
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val viewModel = activity?.run {
+            ViewModelProvider(this)[SharedViewModel::class.java]
+        }
+
+        viewModel?.weather?.observe(viewLifecycleOwner, { products ->
+            val productNames = StringBuilder()
+            products.forEach {
+                productNames.appendLine(it.name)
+            }
+
+            binding.cartContentText.text = productNames.toString()
+        })
+    }
+
+
 
 
     override fun onDestroyView() {
