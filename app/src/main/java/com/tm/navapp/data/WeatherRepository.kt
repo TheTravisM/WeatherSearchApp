@@ -7,7 +7,6 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-/* http://api.weatherstack.com/current?access_key=2093b02f759229c1da497533ba4e672a&query=cincinnati/ */
 const val BASE_ENDPOINT_URL = "http://api.weatherstack.com/"
 const val Access_key = "2093b02f759229c1da497533ba4e672a"
 

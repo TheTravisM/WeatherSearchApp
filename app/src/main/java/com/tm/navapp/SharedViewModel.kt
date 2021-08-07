@@ -19,7 +19,7 @@ class SharedViewModel : ViewModel() {
         val data= weatherRepository.getWeather(cityText)
         // If data exist let it emit
         data?.let {
-            Log.i("Shared VM", it.toString())
+            Log.i("Shared VM API Query", it.request.query)
             emit(it)
         }
     }
