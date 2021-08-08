@@ -3,4 +3,5 @@
     <string name="title_home">Weather</string>
     <string name="title_dashboard">Location</string>
     <string name="title_notifications">Other</string>
+    <string name="TextInpt_City_Name">Type Your City Name Here</string>
 </resources>

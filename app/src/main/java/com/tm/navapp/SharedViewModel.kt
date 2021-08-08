@@ -1,8 +1,8 @@
 package com.tm.navapp
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.tm.navapp.data.Weather
 import com.tm.navapp.data.WeatherRepository
 import kotlinx.coroutines.CoroutineScope
@@ -26,7 +26,6 @@ class SharedViewModel : ViewModel() {
             weather.setValue(data)
         }
     }
-
 }
 
 // This function takes in Lambda function that contains suspend function

@@ -30,7 +30,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
         android:height="64dp"
-        android:hint="Type Your City Name Here"
+        android:hint="@string/TextInpt_City_Name"
         android:singleLine="true"
         app:layout_constraintBottom_toTopOf="@+id/btn_Get_Weather"
         app:layout_constraintEnd_toEndOf="parent"

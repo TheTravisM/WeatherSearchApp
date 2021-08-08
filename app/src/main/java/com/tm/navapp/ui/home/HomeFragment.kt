@@ -1,6 +1,5 @@
 package com.tm.navapp.ui.home
 
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -8,18 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.TextView
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.liveData
 import com.tm.navapp.SharedViewModel
-import com.tm.navapp.data.Weather
-import com.tm.navapp.databinding.FragmentHomeBinding
 import com.tm.navapp.data.WeatherRepository
+import com.tm.navapp.databinding.FragmentHomeBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -49,8 +43,6 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-
 
         val weatherRepository: WeatherRepository = WeatherRepository()
 
@@ -96,7 +88,6 @@ class HomeFragment : Fragment() {
 
             textView.text = output
         })
-
     }
 
     override fun onDestroyView() {
