@@ -7,9 +7,9 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-/* http://api.weatherstack.com/current?access_key=2093b02f759229c1da497533ba4e672a&query=cincinnati/ */
 const val BASE_ENDPOINT_URL = "http://api.weatherstack.com/"
-const val Access_key = "2093b02f759229c1da497533ba4e672a"
+//const val Access_key = "2093b02f759229c1da497533ba4e672a"
+//const val Access_key = "3c0a7ca1a1cf96c2999e59f8d379be7d"
 
 class WeatherRepository {
 
@@ -37,7 +37,6 @@ class WeatherRepository {
     suspend fun getWeather(city:String): Weather? {
         val response = weatherApi.getWeather(city)
        if (response.isSuccessful) {
-           Log.i("Repository Line 48", response.toString())
            return response.body()
        }
         return null
