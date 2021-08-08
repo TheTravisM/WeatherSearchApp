@@ -26,7 +26,7 @@ data class Weather(
         @Json(name = "observation_time")
         val observationTime: String,
         @Json(name = "precip")
-        val precip: Int,
+        val precip: Float,
         @Json(name = "pressure")
         val pressure: Int,
         @Json(name = "temperature")

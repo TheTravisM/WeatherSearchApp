@@ -20,6 +20,9 @@ import com.tm.navapp.SharedViewModel
 import com.tm.navapp.data.Weather
 import com.tm.navapp.databinding.FragmentHomeBinding
 import com.tm.navapp.data.WeatherRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -47,37 +50,23 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+
 
         val weatherRepository: WeatherRepository = WeatherRepository()
 
         val btn = binding.btnGetWeather
+
         btn.setOnClickListener {
             hideKeyboard()
-            // On click grabs text from input assigns to VW
-            viewModel?.cityText = binding.textInputCitySearch.text.toString()
-
-            // Onclick pulls data from weather API
-            viewModel?.weather?.observe(viewLifecycleOwner, Observer {
-                    weatherData ->
-                val output = """Current Weather in ${weatherData.location.name}
-                    Temp: ${weatherData.current.temperature}
-                    Feels Like: ${weatherData.current.feelslike}
-                    Humidity: ${weatherData.current.humidity}
-                    Precipitation: ${weatherData.current.precip}"""
-
-                textView.text = output
-            })
+            // On click grabs text from input assigns to ViewModel
+            val cityText = binding.textInputCitySearch.text.toString()
+            // IO Making a network call for the UI event
+            CoroutineScope(Dispatchers.IO).launch {
+                viewModel?.updateWeather(cityText)
+            }
         }
-
         return root
     }
-
-
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -90,7 +79,31 @@ class HomeFragment : Fragment() {
             ViewModelProvider(this)[SharedViewModel::class.java]
         }
 
+        val textView: TextView = binding.textHome
+        homeViewModel.text.observe(viewLifecycleOwner, Observer {
+            textView.text = it
+        })
 
+        // Onclick pulls data from weather API
+        viewModel?.weather?.observe(viewLifecycleOwner, Observer {
+                weatherData ->
+            Log.i("Home Frag", weatherData.toString())
+            val output = """Current Weather in ${weatherData.location.name}
+                    Temp: ${weatherData.current.temperature}
+                    Feels Like: ${weatherData.current.feelslike}
+                    Humidity: ${weatherData.current.humidity}
+                    Precipitation: ${weatherData.current.precip}"""
+
+            textView.text = output
+        })
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}
 
 //        viewModel?.weather?.observe(viewLifecycleOwner, { weather ->
 //            with(weather) {
@@ -113,10 +126,3 @@ class HomeFragment : Fragment() {
         })
 
          */
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-}

@@ -5,26 +5,31 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.tm.navapp.data.Weather
 import com.tm.navapp.data.WeatherRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class SharedViewModel : ViewModel() {
 
     // Link to Date Reader/getter
     var weatherRepository: WeatherRepository = WeatherRepository()
 
-    val currentWeatherRepository: MutableLiveData<Weather> = MutableLiveData()
+    //val currentWeatherRepository: MutableLiveData<Weather> = MutableLiveData()
 
-    var cityText : String = ""
+    //val weather: MutableLiveData<Weather> = MutableLiveData()
+    val weather: MutableLiveData<Weather> by lazy { MutableLiveData<Weather>() }
 
-    val weather: LiveData<Weather> = liveData {
-        val data= weatherRepository.getWeather(cityText)
-        // If data exist let it emit
-        data?.let {
-            Log.i("Shared VM API Query", it.request.query)
-            emit(it)
+    suspend fun updateWeather(city:String) {
+        val data= weatherRepository.getWeather(city)
+        CoroutineScope(Dispatchers.Main).launch {
+            Log.i("SharedModel", "setValue")
+            weather.setValue(data)
         }
     }
 
-    // This function takes in Lambda function that contains suspend function
+}
+
+// This function takes in Lambda function that contains suspend function
 //    val weather: LiveData<Weather> = liveData {
 //        val data= weatherRepository.getWeather()
 //        // If data exist let it emit
@@ -33,9 +38,6 @@ class SharedViewModel : ViewModel() {
 //            emit(it)
 //        }
 //    }
-}
-
-
 
 /* --
 
