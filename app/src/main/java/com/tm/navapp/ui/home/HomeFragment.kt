@@ -50,10 +50,6 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-
-
-        val weatherRepository: WeatherRepository = WeatherRepository()
-
         val btn = binding.btnGetWeather
 
         btn.setOnClickListener {
