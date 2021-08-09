@@ -1,4 +1,4 @@
-package com.tm.navapp.data
+package com.tm.navapp.model
 
 import com.squareup.moshi.Json
 import androidx.annotation.Keep
