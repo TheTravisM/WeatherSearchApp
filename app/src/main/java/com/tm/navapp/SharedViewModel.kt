@@ -1,8 +1,8 @@
 package com.tm.navapp
 
 import androidx.lifecycle.*
-import com.tm.navapp.data.Weather
-import com.tm.navapp.data.WeatherRepository
+import com.tm.navapp.model.Weather
+import com.tm.navapp.model.WeatherRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

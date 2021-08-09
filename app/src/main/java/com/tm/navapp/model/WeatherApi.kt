@@ -1,4 +1,4 @@
-package com.tm.navapp.data
+package com.tm.navapp.model
 
 import retrofit2.Response
 import retrofit2.http.GET

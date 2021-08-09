@@ -1,4 +1,4 @@
-package com.tm.navapp.data
+package com.tm.navapp.model
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
