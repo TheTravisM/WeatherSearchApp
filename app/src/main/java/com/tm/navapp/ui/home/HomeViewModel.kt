@@ -14,13 +14,5 @@ class HomeViewModel : ViewModel() {
     }
     val text: LiveData<String> = _text
 
-
-//    val etCity = findViewById<EditText>(R.id.etCity)
-//    val etCountry = findViewById<EditText>(R.id.etCountry)
-//    val etCityString = etCity.text.toString().trim()
-//    val country = etCountry.text.toString().trim()
-//    val tvResult = findViewById<TextView>(R.id.tvResult)
-//    val queue = Volley.newRequestQueue(this)
-
 }
 

@@ -1,7 +1,5 @@
 package com.tm.navapp.data
 
-import android.content.Context
-import android.util.Log
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -11,6 +9,7 @@ const val BASE_ENDPOINT_URL = "http://api.weatherstack.com/"
 //const val Access_key = "2093b02f759229c1da497533ba4e672a"
 //const val Access_key = "3c0a7ca1a1cf96c2999e59f8d379be7d"
 
+// Single Source of Truth for all the Data
 class WeatherRepository {
 
     // Adding Retrofit Variable to pull in the API
@@ -28,8 +27,8 @@ class WeatherRepository {
     }
 
     // Adding Private API Variable
-    // Create it lazy by using lazy lamda
-    // This is to have only one instace of the weather API avaiable
+    // Create it lazy by using lazy lambda
+    // This is to have only one instance of the weather API available
     private val weatherApi: WeatherApi by lazy {
         retrofit.create(WeatherApi::class.java)
     }
@@ -42,43 +41,4 @@ class WeatherRepository {
         return null
     }
 
-
 }
-    /* --   fun getCurrentWeather() {
-        val response = weatherApi.getCurrentWeather()
-        return if (response.isSuccessful)
-            response.body() ?: emptyList()
-        Log.i("Repository Line 48", response.toString())
-        else
-        emptyList()
-    }
-        fun getWeather(context: Context, fileName: String): List<Weather>? {
-            // Allows us to get access to Assets Folder Raw Json file
-            val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-            val listType = Types.newParameterizedType(
-            List::class.java, Weather::class.java
-            )
-            val adapter: JsonAdapter<List<Weather>> = moshi.adapter(listType)
-            return adapter.fromJson(getTextFromAsset(context, fileName))
-        }
-
-        // Get Data from Assets
-        fun getTextFromAsset(context: Context, fileName: String): String {
-            return context.resources.assets.open(fileName)
-                // buffer reader handles file reading more efficiently
-                .bufferedReader()
-                .use { it.readText() }
-        }
-
-
-        // -- Get Data From Raw Files
-        fun getTextFromResource(context: Context, resourceId: Int): String {
-            // Allows us to get access to Raw Json file in Resources
-            return context.resources.openRawResource(resourceId)
-                // buffer reader handles file reading more efficiently
-                .bufferedReader()
-                .use{ it.readText() }
-        }
-
-
-     --  */

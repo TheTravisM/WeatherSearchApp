@@ -100,25 +100,3 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 }
-
-//        viewModel?.weather?.observe(viewLifecycleOwner, { weather ->
-//            with(weather) {
-//                binding.textHome.text = "what the hell man!"
-//            }
-//            Log.i("Homefrag 59", weather.toString())
-//        })
-
-
-    /*
-        viewModel?.weather?.observe(viewLifecycleOwner, { weather ->
-            val weatherNames = StringBuilder()
-            weather.forEach {
-               weatherNames.appendLine(it.current.feelslike)
-            }
-
-            Log.i("HomeFrag:56 Weather Names = ", weatherNames.toString())
-
-            //binding.cartContentText.text = weatherNames.toString()
-        })
-
-         */
